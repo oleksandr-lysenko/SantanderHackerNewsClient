@@ -33,7 +33,6 @@ public class HackerNewsController : ControllerBase
                 }
             });
 
-            // var stories = (await Task.WhenAll(tasks)).Where(story => story != null).ToList();
             var stories = await Task.WhenAll(tasks);
 
             var ordered_stories = stories

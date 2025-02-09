@@ -2,7 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5501);
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
+    options.ListenAnyIP(int.Parse(port));
 });
 
 builder.Services.AddMemoryCache();
@@ -16,15 +17,12 @@ builder.Services.AddTransient<HackerNewsClient.Services.HackerNewsService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "HackerNewsAPI Client V1");
-        c.RoutePrefix = "swagger";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "HackerNewsAPI Client V1");
+    c.RoutePrefix = "swagger";
+});
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>
