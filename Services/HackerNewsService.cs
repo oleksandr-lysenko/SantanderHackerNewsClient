@@ -5,7 +5,8 @@ namespace HackerNewsClient.Services
 {
     public class HackerNewsService
     {
-        private static readonly string BaseUrl = "https://hacker-news.firebaseio.com/v0";
+        private const string BaseUrl = "https://hacker-news.firebaseio.com/v0";
+        private const int CacheTTL = 10;
 
         private readonly IMemoryCache _cache;
         private readonly IHttpClientFactory _clientFactory;
@@ -45,7 +46,7 @@ namespace HackerNewsClient.Services
                 if (storyIds == null)
                     throw new JsonException("Deserialization failed, story is null.");
 
-                _cache.Set(url, storyIds, TimeSpan.FromMinutes(10));
+                _cache.Set(url, storyIds, TimeSpan.FromMinutes(CacheTTL));
                 return storyIds;
             }
             catch (JsonException exc)
@@ -75,7 +76,7 @@ namespace HackerNewsClient.Services
                 if (story == null)
                     throw new JsonException("Deserialization failed, story is null.");
 
-                _cache.Set(url, story, TimeSpan.FromMinutes(10));
+                _cache.Set(url, story, TimeSpan.FromMinutes(CacheTTL));
                 return story;
             }
             catch (JsonException exc)
