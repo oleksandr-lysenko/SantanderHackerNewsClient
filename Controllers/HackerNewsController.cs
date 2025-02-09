@@ -1,22 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Threading.Tasks;
 using HackerNewsClient.Services;
 
 [ApiController]
 [Route("api/[controller]")]
 public class HackerNewsController : ControllerBase
 {
-    private readonly IMemoryCache _cache;
     private readonly HackerNewsService _hackerNewsService;
     private readonly ILogger<HackerNewsController> _logger;
-    private const string BestStoriesUrl = "https://hacker-news.firebaseio.com/v0/beststories.json";
 
-    public HackerNewsController(IMemoryCache cache, HackerNewsService hackerNewsService, ILogger<HackerNewsController> logger)
+    public HackerNewsController(HackerNewsService hackerNewsService, ILogger<HackerNewsController> logger)
     {
-        _cache = cache;
         _hackerNewsService = hackerNewsService;
         _logger = logger;
     }
@@ -26,14 +19,7 @@ public class HackerNewsController : ControllerBase
     {
         try
         {
-            if (!_cache.TryGetValue(BestStoriesUrl, out int[]? storyIds))
-            {
-                storyIds = await _hackerNewsService.GetBestStoryIdsAsync();
-                if (storyIds == null) return Problem("Failed to retrieve story IDs");
-
-                _cache.Set(BestStoriesUrl, storyIds, TimeSpan.FromMinutes(10));
-            }
-
+            var storyIds = await _hackerNewsService.GetBestStoryIdsAsync();
             var tasks = storyIds.Take(n).Select(async id =>
             {
                 try
@@ -52,10 +38,10 @@ public class HackerNewsController : ControllerBase
 
             var ordered_stories = stories
                     .Where(story => story != null)
-                    .OrderByDescending(story => story.Score)
+                    .OrderByDescending(story => story!.Score)
                     .Select(story => new
                     {
-                        title = story.Title,
+                        title = story!.Title,
                         uri = story.Url,
                         postedBy = story.By,
                         time = DateTimeOffset.FromUnixTimeSeconds(story.Time).ToString("o"),
