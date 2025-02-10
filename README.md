@@ -37,6 +37,13 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
 
 5. Open your browser and navigate to `http://localhost:5501/swagger` to see the Swagger UI.
 
+### Running the Tests
+
+ 1. Run the tests:
+    ```sh
+    dotnet test tests/HackerNewsServiceTests.csproj
+    ```
+
 ### Running with Docker
 
 1. Build the Docker image:
@@ -64,6 +71,7 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
   - [src/Services](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Services): Contains the service classes.
   - [src/Properties](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Properties): Contains the launch settings.
   - [src/Program.cs](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/src/Program.cs): The entry point of the application.
+- [tests](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/tests): Contains the unit tests of the application.
 - [Dockerfile](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/Dockerfile): The Dockerfile for building the Docker image.
 - [appsettings.json](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/appsettings.json): The configuration file for the application.
 - [appsettings.Development.json](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/appsettings.Development.json): The configuration file for the development environment.
