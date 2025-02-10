@@ -8,7 +8,12 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient();
-builder.Services.AddLogging();
+builder.Services.AddLogging(logging => {
+    logging.ClearProviders();
+    logging.AddConsole();
+    logging.SetMinimumLevel(LogLevel.Debug);
+
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
