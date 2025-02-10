@@ -17,7 +17,7 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
 1. Clone the repository:
     ```sh
     git clone https://github.com/oleksandr-lysenko/SantanderHackerNewsClient.git
-    cd HackerNewsClient
+    cd SantanderHackerNewsClient
     ```
 
 2. Restore the dependencies:
@@ -27,12 +27,12 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
 
 3. Build the project:
     ```sh
-    dotnet build
+    dotnet build src/HackerNewsClient.csproj
     ```
 
 4. Run the application:
     ```sh
-    dotnet run
+    dotnet run --project src/HackerNewsClient.csproj
     ```
 
 5. Open your browser and navigate to `http://localhost:5501/swagger` to see the Swagger UI.
@@ -53,16 +53,17 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
 
 4. Stop the Docker container when it is not needed:
     ```sh
-    docker stop hackernewsclient
+    docker stop hackernewsclientcontainer
     ```
 
 ## Project Structure
 
-- [Controllers](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/Controllers): Contains the API controllers.
-- [Models](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/Models): Contains the data models.
-- [Services](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/Services): Contains the service classes.
-- [Properties](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/Properties): Contains the launch settings.
-- [Program.cs](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/Program.cs): The entry point of the application.
+- [src](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/): Contains the source code of the application.
+  - [src/Controllers](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Controllers): Contains the API controllers.
+  - [src/Models](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Models): Contains the data models.
+  - [src/Services](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Services): Contains the service classes.
+  - [src/Properties](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/tree/main/src/Properties): Contains the launch settings.
+  - [src/Program.cs](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/src/Program.cs): The entry point of the application.
 - [Dockerfile](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/Dockerfile): The Dockerfile for building the Docker image.
 - [appsettings.json](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/appsettings.json): The configuration file for the application.
 - [appsettings.Development.json](https://github.com/oleksandr-lysenko/SantanderHackerNewsClient/blob/main/appsettings.Development.json): The configuration file for the development environment.
@@ -73,11 +74,11 @@ As for a future improvement, I would add CI/CD pipeline to automate the deployme
 
 ## Using cURL
 
-You can use the following cURL command to fetch the top 333 best stories from Hacker News:
+You can use the following cURL command to fetch the top 137 best stories from Hacker News:
 
 ```sh
 curl -X 'GET' \
-  'http://localhost:5501/api/HackerNews/beststories?n=18' \
+  'http://localhost:5501/api/HackerNews/beststories?n=137' \
   -H 'accept: */*'
 ```
 
